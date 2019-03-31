@@ -32,6 +32,7 @@ namespace Waves.WebAPI.Controllers.Project
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]ProjectSearchParametersModel parameters)
         {
+            parameters.UserId = await _GetCurrentUserId();
             return Ok(await _projectStore.GetAsync(parameters));
         }
 

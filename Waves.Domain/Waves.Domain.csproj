@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190223204900_Initial.cs" />
     <Compile Remove="Migrations\20190223210550_Initial.cs" />
+    <Compile Remove="Migrations\20190331142858_IsleLIneFields.cs" />
+    <Compile Remove="Migrations\20190331144939_AddedIsDeleted.cs" />
+    <Compile Remove="Migrations\20190331145201_ChnagwdIsleType.cs" />
+    <Compile Remove="Migrations\20190331150122_ChangedWType.cs" />
   </ItemGroup>
 
   <ItemGroup>

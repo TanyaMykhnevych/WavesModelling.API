@@ -9,7 +9,7 @@ namespace Waves.Domain.Models
         public Int32 D { get; set; }
         public Int32 N { get; set; }
         public Single Omega { get; set; }
-        public Int32 W { get; set; }
+        public Double W { get; set; }
         public Int32 R { get; set; }
         public Int32 KvisRange { get; set; }
 
