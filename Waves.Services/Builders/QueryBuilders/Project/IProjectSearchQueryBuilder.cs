@@ -9,6 +9,7 @@ namespace Waves.Services.Builders.QueryBuilders
         IProjectSearchQueryBuilder SetProjectId(Int32? projectId);
         IProjectSearchQueryBuilder SetUserId(Int32? userId);
         IProjectSearchQueryBuilder SetSearchTerm(String searchTerm);
+        IProjectSearchQueryBuilder SetIsActive(Boolean? isActive);
         IProjectSearchQueryBuilder OrderByCreatedDesc();
     }
 }

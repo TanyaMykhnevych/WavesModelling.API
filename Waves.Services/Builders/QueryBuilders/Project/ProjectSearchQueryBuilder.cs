@@ -67,6 +67,16 @@ namespace Waves.Services.Builders.QueryBuilders
             return this;
         }
 
+        public IProjectSearchQueryBuilder SetIsActive(Boolean? isActive)
+        {
+            if (isActive.HasValue)
+            {
+                _query = _query.Where(c => c.IsDeleted == !isActive);
+            }
+
+            return this;
+        }
+
         public IProjectSearchQueryBuilder OrderByCreatedDesc()
         {
             _query = _query.OrderByDescending(c => c.CreatedOn);

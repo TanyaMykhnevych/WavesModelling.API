@@ -35,6 +35,7 @@ namespace Waves.Services.Stores
                                                      .SetUserId(parameters.UserId)
                                                      .SetProjectId(parameters.ProjectId)
                                                      .SetSearchTerm(parameters.SearchTerm)
+                                                     .SetIsActive(parameters.IsActive)
                                                      .OrderByCreatedDesc()
                                                      .Build();
 
@@ -71,6 +72,16 @@ namespace Waves.Services.Stores
             _context.SaveChanges();
 
             return _mapper.Map<ProjectDTO>(newProject);
+        }
+
+        public async Task<ProjectDTO> SetIsActive(Int32 id, Boolean isActive)
+        {
+            Project proj = _context.Projects.Find(id);
+            proj.IsDeleted = !isActive;
+            _context.Entry(proj).Property(x => x.IsDeleted).IsModified = true;
+            _context.SaveChanges();
+
+            return _mapper.Map<ProjectDTO>(proj);
         }
 
         public Task DeleteAsync(Int32 projectId)

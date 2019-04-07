@@ -50,6 +50,12 @@ namespace Waves.WebAPI.Controllers.Project
             return Ok(await _projectStore.AddOrUpdateAsync(project));
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult> ChangeIsActive(Int32 id, [FromBody]DeactivateProjectModel model)
+        {
+            return Ok(await _projectStore.SetIsActive(id, model.IsActive));
+        }
+
         private async Task<Int32?> _GetCurrentUserId()
         {
             String email = _userManager.GetUserId(User);

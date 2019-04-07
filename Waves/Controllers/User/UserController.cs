@@ -28,8 +28,10 @@ namespace Waves.WebAPI.Controllers.User
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody]CreateUserModel model)
         {
+            model.RoleId = ReservedConstants.SUPER_ADMIN_ROLE_ID;
             try
             {
                 return Ok(await _store.CreateUserAsync(model));

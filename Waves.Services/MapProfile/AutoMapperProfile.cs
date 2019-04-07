@@ -29,8 +29,8 @@ namespace Waves.Services.MapProfile
             CreateMap<CreateUserModel, AppUser>()
                 .IgnoreAllUnmapped()
                 .ForMember(u => u.RoleId, m => m.MapFrom(u => u.RoleId))
-                .ForMember(u => u.FirstName, m => m.MapFrom(u => u.FirstName))
-                .ForMember(u => u.LastName, m => m.MapFrom(u => u.LastName))
+                //.ForMember(u => u.FirstName, m => m.MapFrom(u => u.FirstName))
+                //.ForMember(u => u.LastName, m => m.MapFrom(u => u.LastName))
                 .ForMember(u => u.Email, m => m.MapFrom(u => u.Email))
                 .ForMember(u => u.UserName, m => m.MapFrom(u => u.Email));
 
