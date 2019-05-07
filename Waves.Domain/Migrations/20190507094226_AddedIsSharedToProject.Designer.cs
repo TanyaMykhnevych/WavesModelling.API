@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Waves.Domain;
 
 namespace Waves.Domain.Migrations
 {
     [DbContext(typeof(WavesDbContext))]
-    partial class WavesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190507094226_AddedIsSharedToProject")]
+    partial class AddedIsSharedToProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

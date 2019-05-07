@@ -77,6 +77,16 @@ namespace Waves.Services.Builders.QueryBuilders
             return this;
         }
 
+        public IProjectSearchQueryBuilder SetIsShared(Boolean? isShared)
+        {
+            if (isShared.HasValue)
+            {
+                _query = _query.Where(c => c.IsShared == isShared);
+            }
+
+            return this;
+        }
+
         public IProjectSearchQueryBuilder OrderByCreatedDesc()
         {
             _query = _query.OrderByDescending(c => c.CreatedOn);

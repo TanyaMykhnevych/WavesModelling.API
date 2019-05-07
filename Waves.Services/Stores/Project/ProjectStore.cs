@@ -65,6 +65,18 @@ namespace Waves.Services.Stores
             return _mapper.Map<ProjectDTO>(model);
         }
 
+        public async Task<ProjectDTO> GetByIdSharedAsync(Int32 projectId)
+        {
+            Project model = _queryBuilder.SetBaseProjectsInfo()
+                                         .SetProjectId(projectId)
+                                         .SetIsActive(true)
+                                         .SetIsShared(true)
+                                         .Build()
+                                         .FirstOrDefault();
+
+            return _mapper.Map<ProjectDTO>(model);
+        }
+
         public async Task<ProjectDTO> AddOrUpdateAsync(ProjectDTO project)
         {
             Project newProject = _mapper.Map<Project>(project);
@@ -74,19 +86,34 @@ namespace Waves.Services.Stores
             return _mapper.Map<ProjectDTO>(newProject);
         }
 
-        public async Task<ProjectDTO> SetIsActive(Int32 id, Boolean isActive)
+        public async Task<ProjectDTO> SetIsActiveAsync(Int32 id, Boolean isActive)
         {
             Project proj = _context.Projects.Find(id);
             proj.IsDeleted = !isActive;
             _context.Entry(proj).Property(x => x.IsDeleted).IsModified = true;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return _mapper.Map<ProjectDTO>(proj);
         }
 
-        public Task DeleteAsync(Int32 projectId)
+        public async Task<ProjectDTO> ShareAsync(Int32 id, Boolean isShared)
         {
-            throw new NotImplementedException();
+            Project proj = _context.Projects.Find(id);
+            if (!proj.IsDeleted)
+            {
+                proj.IsShared = isShared;
+                _context.Entry(proj).Property(x => x.IsShared).IsModified = true;
+                await _context.SaveChangesAsync();
+            }
+
+            return _mapper.Map<ProjectDTO>(proj);
+        }
+
+        public async Task DeleteAsync(Int32 projectId)
+        {
+            Project proj = _context.Projects.Find(projectId);
+            _context.Projects.Remove(proj);
+            await _context.SaveChangesAsync();
         }
     }
 }

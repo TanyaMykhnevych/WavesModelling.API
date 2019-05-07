@@ -10,6 +10,7 @@ namespace Waves.Services.Builders.QueryBuilders
         IProjectSearchQueryBuilder SetUserId(Int32? userId);
         IProjectSearchQueryBuilder SetSearchTerm(String searchTerm);
         IProjectSearchQueryBuilder SetIsActive(Boolean? isActive);
+        IProjectSearchQueryBuilder SetIsShared(Boolean? isShared);
         IProjectSearchQueryBuilder OrderByCreatedDesc();
     }
 }

@@ -10,6 +10,7 @@ namespace Waves.Domain.Models
     {
         [MaxLength(50)]
         public String Name { get; set; }
+        public Boolean IsShared { get; set; }
         public Sea Sea { get; set; }
         public Options Options { get; set; }
 

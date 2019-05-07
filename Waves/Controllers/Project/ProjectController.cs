@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Threading.Tasks;
 using Waves.Domain.Models.User;
 using Waves.Entities.Models;
@@ -15,7 +13,6 @@ using Waves.Services.Stores.User;
 namespace Waves.WebAPI.Controllers.Project
 {
     [Route("api/[controller]")]
-    [Authorize(Policy = nameof(AppFeatures.FullAccess))]
     public class ProjectController : Controller
     {
         private readonly IProjectStore _projectStore;
@@ -30,6 +27,7 @@ namespace Waves.WebAPI.Controllers.Project
         }
 
         [HttpGet]
+        [Authorize(Policy = nameof(AppFeatures.FullAccess))]
         public async Task<IActionResult> Get([FromQuery]ProjectSearchParametersModel parameters)
         {
             parameters.UserId = await _GetCurrentUserId();
@@ -37,12 +35,21 @@ namespace Waves.WebAPI.Controllers.Project
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = nameof(AppFeatures.FullAccess))]
         public async Task<IActionResult> Get(Int32 id)
         {
             return Ok(await _projectStore.GetByIdAsync(id));
         }
 
+        [HttpGet("shared/{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetShared(Int32 id)
+        {
+            return Ok(await _projectStore.GetByIdSharedAsync(id));
+        }
+
         [HttpPost]
+        [Authorize(Policy = nameof(AppFeatures.FullAccess))]
         public async Task<ActionResult> Post([FromBody]ProjectDTO project)
         {
 
@@ -51,9 +58,17 @@ namespace Waves.WebAPI.Controllers.Project
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = nameof(AppFeatures.FullAccess))]
         public async Task<ActionResult> ChangeIsActive(Int32 id, [FromBody]DeactivateProjectModel model)
         {
-            return Ok(await _projectStore.SetIsActive(id, model.IsActive));
+            return Ok(await _projectStore.SetIsActiveAsync(id, model.IsActive));
+        }
+
+        [HttpPatch("{id}")]
+        [Authorize(Policy = nameof(AppFeatures.FullAccess))]
+        public async Task<ActionResult> Share(Int32 id, [FromBody]ShareProjectModel model)
+        {
+            return Ok(await _projectStore.ShareAsync(id, model.IsShared));
         }
 
         private async Task<Int32?> _GetCurrentUserId()
