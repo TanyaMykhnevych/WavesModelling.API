@@ -5,7 +5,6 @@ namespace Waves.Entities.Models.Oscillator
 {
     public class OscillatorDTO : BaseEntityDTO
     {
-        public Single Omega { get; set; }
         public Double Amplitude { get; set; }
         public Int32 Row { get; set; }
         public Int32 Column { get; set; }

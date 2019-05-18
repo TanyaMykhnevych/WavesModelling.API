@@ -6,7 +6,6 @@ namespace Waves.Domain.Models
 {
     public class Oscillator : BaseEntity
     {
-        public Single Omega { get; set; }
         public Double Amplitude { get; set; }
 
         public Int32 Row { get; set; }
